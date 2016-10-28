@@ -1,4 +1,10 @@
-logLevel = 1
+import json
+
+with open('config.json') as json_data_file: #Open the config json file
+    data = json.load(json_data_file)
+
+
+logLevel = data['logLevel']
 
 def log(msg, level):
     if level >= logLevel:
