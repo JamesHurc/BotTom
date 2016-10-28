@@ -6,6 +6,8 @@ plugins = {} #Set plugins to empty
 
 builtins.log = utilities.log #Import logging from the utilities file
 
+with open('config.json') as json_data_file: #Open the config json file
+    data = json.load(json_data_file)
 
 def loadPluginFromLocal(name): #Local is the name of the file with the file extension on the end.
     log("Attempting to load module " + name, 2)
@@ -47,4 +49,4 @@ async def on_ready():
 
 
 searchAndLoad() #Load modules
-client.run("token")
+client.run(data["token"])

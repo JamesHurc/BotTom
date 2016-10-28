@@ -1,3 +1,4 @@
 {
-    "logLevel": 1
+    "logLevel": 1,
+    "token": "insert_token_here"
 }
