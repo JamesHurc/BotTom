@@ -27,7 +27,7 @@ def getCommandTable(comm):
     return commTbl
 
 async def handleIncomingCommand(message):
-    if message.author.id != client.user.id and message.content.startswith("!"): #Check to make sure that the bot is not responding to its own message
+    if message.author.id != client.user.id and message.content.startswith(data["cmdStart"]): #Check to make sure that the bot is not responding to its own message
         commTbl = getCommandTable(message.content)
         if commTbl[0] in plugins:
             try:
