@@ -26,9 +26,12 @@ def getCommandTable(comm):
     commTbl = comm.split(" ")
     return commTbl
 
-async def handleIncomingCommand(message):
+async def handleIncoming(message):
     if message.author.id != client.user.id and message.content.startswith(data["cmdStart"]): #Check to make sure that the bot is not responding to its own message
         commTbl = getCommandTable(message.content)
+        await handleIncomingCommand(message, commTbl)
+
+async def handleIncomingCommand(message, commTbl):
         if commTbl[0] in plugins:
             try:
                 await plugins[commTbl[0]].main(message, client, commTbl)
@@ -41,7 +44,7 @@ async def handleIncomingCommand(message):
 
 @client.event #When a message is received.
 async def on_message(message):
-    await handleIncomingCommand(message)
+    await handleIncoming(message)
 
 @client.event #When the bot has loaded.
 async def on_ready():
