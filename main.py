@@ -26,6 +26,8 @@ async def handleIncoming(message):
     if message.author.id != client.user.id and message.content.startswith(data["cmdStart"]): #Check to make sure that the bot is not responding to its own message
         commTbl = getCommandTable(message.content)
         await handleIncomingCommand(message, commTbl)
+    elif message.author.id != client.user.id:
+        await plugins['auto'].main(message, client)
 
 async def handleIncomingCommand(message, commTbl):
     if commTbl[0] in plugins:
@@ -45,6 +47,7 @@ async def on_message(message):
 @client.event #When the bot has loaded.
 async def on_ready():
     log("Logged in as " + client.user.name + " and loaded all plugins", 2)
+    await client.change_presence(game=discord.Game(name=data["currentlyPlaying"]))
 
 
 searchAndLoad() #Load modules

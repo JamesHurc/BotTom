@@ -1,5 +1,6 @@
 {
     "logLevel": 2,
     "token": "insert_token_here",
-    "cmdStart": "!"
+    "cmdStart": "!",
+    "currentlyPlaying": "With his BotTom"
 }
