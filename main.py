@@ -1,6 +1,5 @@
 import importlib, os, discord, asyncio, json, builtins, utilities
 
-ignoreNames = ["__pycache__", "__init__.py"] #Define file names to ignore when loading modules
 client = discord.Client() #Set the client
 plugins = {} #Set plugins to empty
 
@@ -24,7 +23,6 @@ def loadPluginFromLocal(name): #Local is the name of the file with the file exte
 def searchAndLoad():
     contents = os.listdir("plugins")
     for toLoad in contents:
-        if toLoad not in ignoreNames:
             loadPluginFromLocal(toLoad)
 
 async def handleIncoming(message):

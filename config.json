@@ -4,6 +4,7 @@
     "cmdStart": "!",
     "currentlyPlaying": "With his BotTom",
     "modulesToIgnore":[
-        "example.py"
+        "__pycache__",
+        "__init__.py"
     ]
 }
