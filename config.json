@@ -2,5 +2,8 @@
     "logLevel": 2,
     "token": "insert_token_here",
     "cmdStart": "!",
-    "currentlyPlaying": "With his BotTom"
+    "currentlyPlaying": "With his BotTom",
+    "modulesToIgnore":[
+        "example.py"
+    ]
 }

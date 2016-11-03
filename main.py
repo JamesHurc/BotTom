@@ -12,9 +12,14 @@ with open('config.json') as json_data_file: #Open the config json file
 
 def loadPluginFromLocal(name): #Local is the name of the file with the file extension on the end.
     log("Attempting to load module " + name, 2)
-    pluginFinalName = name.split(".")
-    obj = importlib.import_module("plugins." + pluginFinalName[0])
-    plugins[pluginFinalName[0]] = obj
+    if name not in data["modulesToIgnore"]:
+        pluginFinalName = name.split(".")
+        obj = importlib.import_module("plugins." + pluginFinalName[0])
+        plugins[pluginFinalName[0]] = obj
+    elif name in data["modulesToIgnore"]:
+        log("Module " + name + " was not loaded, due to being ignored in config", 2)
+    else:
+        log("Module " + name + "was not loaded, for an unknown reason", 3)
 
 def searchAndLoad():
     contents = os.listdir("plugins")
