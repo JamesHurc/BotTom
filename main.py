@@ -38,7 +38,19 @@ async def handleIncoming(message):
         await plugins['auto'].main(message, client)
 
 async def handleIncomingCommand(message, commTbl):
-    if commTbl[0].lower() in plugins:
+    if commTbl[0].lower() == "help":
+        if commTbl[1].lower() in plugins:
+            log("Attempting to run help on command " + commTbl[1], 1)
+            try:
+                await plugins[commTbl[1].lower()].help(message, client, commTbl)
+            except Exception as exception:
+                await client.send_message(message.channel, "An error occoured while looking for help")
+                log("An error occured within help for " + commTbl[1] + exception)
+        elif commTbl[1].lower() == "help":
+            await client.send_message(message.channel, "Oh aren't you clever calling help on help to see what happens. Well done.")
+        else:
+            await client.send_message(message.channel, "Help for command " + commTbl[1] + " could not be found. No plugin names " + commTbl[1] + "was loaded.")
+    elif commTbl[0].lower() in plugins:
         try:
             await plugins[commTbl[0].lower()].main(message, client, commTbl)
             log("Attempting to run command " + commTbl[0], 1)
