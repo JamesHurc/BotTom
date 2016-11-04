@@ -38,9 +38,9 @@ async def handleIncoming(message):
         await plugins['auto'].main(message, client)
 
 async def handleIncomingCommand(message, commTbl):
-    if commTbl[0] in plugins:
+    if commTbl[0].lower() in plugins:
         try:
-            await plugins[commTbl[0]].main(message, client, commTbl)
+            await plugins[commTbl[0].lower()].main(message, client, commTbl)
             log("Attempting to run command " + commTbl[0], 1)
         except Exception as ex:
             log("An error occurred within '" + commTbl[0] + "': " + str(ex), 3)
