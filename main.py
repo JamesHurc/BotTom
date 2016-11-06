@@ -42,7 +42,12 @@ async def handleIncoming(message):
 
 async def handleIncomingCommand(message, commTbl):
     if commTbl[0].lower() == "help":
-        if commTbl[1].lower() in plugins:
+        if len(commTbl) == 1:
+            await client.send_message(message.channel, "The following plugins are loaded:")
+            for plugin in plugins:
+                await client.send_message(message.channel, "• " + plugin)
+            await client.send_message(message.channel, "Use !help <command> to find out more about a specific command")
+        elif commTbl[1].lower() in plugins:
             log("Attempting to run help on command " + commTbl[1], 1)
             try:
                 await plugins[commTbl[1].lower()].help(message, client, commTbl)
