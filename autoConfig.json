@@ -1,4 +1,7 @@
 {"reactions":[
     {"trigger":"birthday", "react": "🎂"}
-]
+],
+  "automatedReplies":[
+    {"trigger":"I were", "response":"You mean I was!"}
+  ]
 }
