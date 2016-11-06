@@ -21,7 +21,7 @@ def loadPluginFromLocal(name): #Local is the name of the file with the file exte
             plugins[pluginFinalName[0]] = obj
             log("Plugin " + name + " was succesfully loaded", 2)
         except Exception as exception:
-            log("Plugin " + name + " was not loaded as " + Exception, 3)
+            log("Plugin " + name + " was not loaded as " + exception, 3)
     elif name in data["modulesToIgnore"]:
         log("Plugin " + name + " was not loaded, due to being ignored in config", 2)
     else:
