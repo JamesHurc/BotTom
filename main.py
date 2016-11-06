@@ -9,6 +9,9 @@ builtins.getCommandTable = utilities.getCommandTable
 with open('config.json') as json_data_file: #Open the config json file
     data = json.load(json_data_file)
 
+with open('autoConfig.json') as json_data_file: # Open the configuration for auto, a module allowing for reactions etc
+    autoConfig = json.load(json_data_file)
+
 def loadPluginFromLocal(name): #Local is the name of the file with the file extension on the end.
     log("Found, and attempting to load file " + name, 1)
     if name not in data["modulesToIgnore"]:
@@ -35,7 +38,7 @@ async def handleIncoming(message):
         commTbl = getCommandTable(message.content)
         await handleIncomingCommand(message, commTbl)
     elif message.author.id != client.user.id:
-        await plugins['auto'].main(message, client)
+        await plugins['auto'].main(message, client, autoConfig, discord)
 
 async def handleIncomingCommand(message, commTbl):
     if commTbl[0].lower() == "help":
