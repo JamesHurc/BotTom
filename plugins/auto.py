@@ -9,7 +9,6 @@ async def addReaction(message, client, config, Discord):
         if react["trigger"].lower() in message.content.lower():
             await client.add_reaction(message, react["react"])
             log("Reaction " + react["react"] + " was added to the message " + message.content, 1)
-        log("No reactions were added to the message " + message.content, 1)
 
 async def automatedReply(message, client, config):
     for automatedReply in config["automatedReplies"]:
