@@ -3,7 +3,7 @@ A Discord Bot that supports user made modules in a nice friendly way (ish)
 
 ## How do I use this?
 
-It's pretty simple. Just dowload it in some way, edit the config file to your prefrences, and put the token for your discord bot into the token part, and then run main.py (or start.bat). Easy.
+It's pretty simple. Just dowload it in some way, edit the config file to your prefrences, and put the token for your discord bot into the token part, and then run main.py (or start.bat). Easy. You're also going to need to enable [https://github.com/Rapptz/discord.py](discord.py).
 
 ### The config file
 
