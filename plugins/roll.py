@@ -14,6 +14,5 @@ async def main(message, client, args):
 
 
 async def help(message, client, args):
-    await client.send_message(message.channel, "Help for " + args[1] + ":")
     await client.send_message(message.channel, "Roll allows for rolling a dice of a specific (positive integer) number of sides")
     await client.send_message(message.channel, "Usage: !roll d[Number]")

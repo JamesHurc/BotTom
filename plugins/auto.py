@@ -16,5 +16,4 @@ async def automatedReply(message, client, config):
             await client.send_message(message.channel, automatedReply["response"])
 
 async def help(message, client, args):
-    await client.send_message(message.channel, "Help for " + args[1] + ":")
     await client.send_message(message.channel, "This is the auto module. Essentially it's a tonne of triggers that automatically respond to every mesasge you write. It can be configured to reply automatically, add reactions to messages, and maybe more things in the future. To configure it edit the autoConfig.json file.")

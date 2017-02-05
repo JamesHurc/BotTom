@@ -50,6 +50,7 @@ async def handleIncomingCommand(message, commTbl):
         elif commTbl[1].lower() in plugins:
             log("Attempting to run help on command " + commTbl[1], 1)
             try:
+                await client.send_message(message.channel, "Help for " + str(commTbl[1]))
                 await plugins[commTbl[1].lower()].help(message, client, commTbl)
             except Exception as exception:
                 await client.send_message(message.channel, "An error occoured while looking for help")

@@ -8,6 +8,5 @@ async def main(message, client, args):
     await client.send_message(message.channel, "Current uptime is: " + str(uptime))
 
 async def help(message, client, args):
-    await client.send_message(message.channel, "Help for " + args[1] + ":")
     await client.send_message(message.channel, "Displays the uptime of the bot")
     await client.send_message(message.channel, "Usage: !uptime")
