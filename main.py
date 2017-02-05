@@ -58,7 +58,12 @@ async def handleIncomingCommand(message, commTbl):
         elif commTbl[1].lower() == "help":
             await client.send_message(message.channel, "Oh aren't you clever calling help on help to see what happens. Well done.")
         else:
-            await client.send_message(message.channel, "Help for command " + commTbl[1] + " could not be found. No plugin named" + commTbl[1] + " was loaded.")
+            if commTbl[1] in data["aliases"]:
+                commTbl[1] = data["aliases"][commTbl[1]]
+                await client.send_message(message.channel, "Help for " + str(commTbl[1]))
+                await plugins[commTbl[1].lower()].help(message, client, commTbl)
+            else:
+                await client.send_message(message.channel, "Help for command " + commTbl[1] + " could not be found. No plugin named" + commTbl[1] + " was loaded.")
     elif commTbl[0].lower() in plugins:
         try:
             await plugins[commTbl[0].lower()].main(message, client, commTbl)
@@ -66,8 +71,12 @@ async def handleIncomingCommand(message, commTbl):
         except Exception as ex:
             log("An error occurred within '" + commTbl[0] + "': " + str(ex), 3)
     else:
-        await client.send_message(message.channel, "Command not recognised.")
-        log("An eror occoured, command " + "'" + commTbl[0] + "'" + " was not recognised", 3)
+        if commTbl[0] in data["aliases"]:
+            commTbl[0] = data["aliases"][commTbl[0]]
+            await plugins[commTbl[0].lower()].main(message, client, commTbl)
+        else:
+            await client.send_message(message.channel, "Command not recognised.")
+            log("An eror occoured, command " + "'" + commTbl[0] + "'" + " was not recognised", 3)
 
 @client.event #When a message is received.
 async def on_message(message):

@@ -6,5 +6,8 @@
     "modulesToIgnore":[
         "__pycache__",
         "__init__.py"
-    ]
+    ],
+	"aliases": {
+		"hi": "hello"
+	}
 }
