@@ -33,6 +33,7 @@ def searchAndLoad():
         if toLoad.endswith('.py'):
             loadPluginFromLocal(toLoad)
 
+
 async def handleIncoming(message):
     if message.author.id != client.user.id and message.content.startswith(data["cmdStart"]): #Check to make sure that the bot is not responding to its own message
         commTbl = getCommandTable(message.content)
@@ -40,14 +41,19 @@ async def handleIncoming(message):
     elif message.author.id != client.user.id:
         await plugins['auto'].main(message, client, autoConfig, discord)
 
+        
 async def handleIncomingCommand(message, commTbl):
-    if commTbl[0].lower() == "help":
+    commTbl[0] = commTbl[0].lower()
+    if commTbl[0] == "help":
+        commTbl[1] = commTbl[1].lower()
+        
         if len(commTbl) == 1:
             await client.send_message(message.channel, "The following plugins are loaded:")
             for plugin in plugins:
                 await client.send_message(message.channel, "• " + str(plugin).title())
             await client.send_message(message.channel, "Use !help <command> to find out more about a specific command")
-        elif commTbl[1].lower() in plugins:
+            
+        elif commTbl[1] in plugins:
             log("Attempting to run help on command " + commTbl[1], 1)
             try:
                 await client.send_message(message.channel, "Help for " + str(commTbl[1]))
@@ -55,25 +61,28 @@ async def handleIncomingCommand(message, commTbl):
             except Exception as exception:
                 await client.send_message(message.channel, "An error occoured while looking for help")
                 log("An error occured within help for " + commTbl[1] + exception)
-        elif commTbl[1].lower() == "help":
+                
+        elif commTbl[1] == "help":
             await client.send_message(message.channel, "Oh aren't you clever calling help on help to see what happens. Well done.")
+            
         else:
             if commTbl[1] in data["aliases"]:
                 commTbl[1] = data["aliases"][commTbl[1]]
                 await client.send_message(message.channel, "Help for " + str(commTbl[1]))
-                await plugins[commTbl[1].lower()].help(message, client, commTbl)
+                await plugins[commTbl[1]].help(message, client, commTbl)
             else:
                 await client.send_message(message.channel, "Help for command " + commTbl[1] + " could not be found. No plugin named" + commTbl[1] + " was loaded.")
-    elif commTbl[0].lower() in plugins:
+                
+    elif commTbl[0] in plugins:
         try:
-            await plugins[commTbl[0].lower()].main(message, client, commTbl)
+            await plugins[commTbl[0]].main(message, client, commTbl)
             log("Attempting to run command " + commTbl[0], 1)
         except Exception as ex:
             log("An error occurred within '" + commTbl[0] + "': " + str(ex), 3)
     else:
         if commTbl[0] in data["aliases"]:
             commTbl[0] = data["aliases"][commTbl[0]]
-            await plugins[commTbl[0].lower()].main(message, client, commTbl)
+            await plugins[commTbl[0]].main(message, client, commTbl)
         else:
             await client.send_message(message.channel, "Command not recognised.")
             log("An eror occoured, command " + "'" + commTbl[0] + "'" + " was not recognised", 3)
